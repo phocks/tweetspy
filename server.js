@@ -22,16 +22,25 @@ const path = require('path'),
 const adapter = new FileSync('.data/db.json');
 const db = low(adapter);
 
-// A few constants and/or variables
-const USERNAME = process.env.USERNAME;
+// Uncomment to immediately clear the database
+// dropEntireDatabase();
 
-// Set some defaults
-db.defaults({ favs: [] }) 
-  .write();
+// A few constants and/or variables
+const currentUser = process.env.USERNAME;
+const userList = ['phocks', 'larissawaters', 'JuliaGillard'];
+
+// Changable options 
+let mute = true;
+
+init();
+
+
+
 
 // Serve the public directory directly
 app.use(express.static('public'));
 
+// Triggered by uptime robot
 app.all("/" + process.env.BOT_ENDPOINT, function (request, response) {
   console.log("The bot has been triggered!!!");
   
@@ -40,22 +49,33 @@ app.all("/" + process.env.BOT_ENDPOINT, function (request, response) {
 
     // Get an array of faved tweet ids
     let currentFaved = data.map(elem => {
-      return elem.id_str;
+      return elem.id_str + "," + elem.user.screen_name
     });
     
     // Get stored faves from the time before
-    let previouslyFaved = db.get('favs').value()
+    let previouslyFaved = db.get(currentUser).value() || [];
     
-    console.log(previouslyFaved);
+    // See if there are any new faves by minusing the old ones
+    let newFaves = currentFaved.diff(previouslyFaved);
     
-    console.log(currentFaved);
+    console.log(newFaves.length);
     
-    console.log(currentFaved.diff( previouslyFaved ) );
+    // Tweet any new faves
+    newFaves.forEach(element => {
+      console.log(element.split(","));
+      let parsedFaves = element.split(",")
+      if (!mute) T.post('statuses/update', 
+             { status: '(test tweet) Josh faved: ' + "https://twitter.com/" + parsedFaves[1] + "/status/" + parsedFaves[0] }, 
+             function(err, data, response) {
+        console.log("Tweeted about: ",  element)
+      });
+    });
     
-    db.set('favs', currentFaved)
+    // console.log(newFaves );
+    
+    db.set(currentUser, currentFaved)
       .write();
-    
-    
+
   })
   
   response.sendStatus(200);
@@ -66,173 +86,34 @@ var listener = app.listen(process.env.PORT, function () {
   console.log('Your bot is running on port ' + listener.address().port);
 });
 
+
+
+
+
 // Get the difference between two arrays
 Array.prototype.diff = function(a) {
     return this.filter(function(i) {return a.indexOf(i) < 0;});
 };
 
-// app.set('json spaces', 4);
+function init() {
+  checkUsers();
+}
 
-// app.get("/loadfriends", (request, response) => {
-//   T.get('friends/ids', { screen_name: 'phocks' },  function (err, data, res) {
-//     // Add a post
-//     db.set('friends', data.ids)
-//       .write();
-//     response.json(data);
-//   })
-// });
+function checkUsers() {
+  userList.forEach(user => {
+    let userInDb = db.has(user).value();
+    console.log("Checking if " + user + " is in the database...", userInDb);
+    if (userInDb) return;
+    // If user not in DB try to set them up after a delay
+    setTimeout(() => {
+      console.log('Setting up ' + user);
+    }, 5000)
+  });
+}
 
-// app.all("/" + process.env.BOT_ENDPOINT, function (request, response) {
-
-  
-//   // Put recurring stuff here
-  
-//   let friends = db.get('friends').value() || [];
-  
-//   if (!friends[0]) {
-//     response.status(200);
-//     console.log('No friends left...');
-//     response.send('No friends left...');
-//     return false;
-//   }
-  
-
-//     // console.log(friends);
-  
-//   console.log('starting operation')
-
-//     fox.setIntervalX(muteUser,
-//         1 * 1000, // Milliseconds between calls
-//         20 // How many times
-//       );
-  
-//   function removeRetweet () {
-//       T.post('friendships/update', { user_id: friends[0], retweets: 'false' }, (err, data, res) => {
-//         // if (err) response.send(err);
-//         if (err) console.log(err);
-        
-//           console.log('Removed retweets from ' + friends[0]);
-//           friends.shift();
-//           db.set('friends', friends)
-//             .write();
-      
-//           console.log("Left to do: " + friends.length)
-//         });
-//       }
-
-
-  
-//   function muteUser () {
-//       T.post('mutes/users/create', { user_id: friends[0] }, (err, data, res) => {
-//         // if (err) response.send(err);
-//         if (err) console.log(err);
-        
-//           console.log('Muted user ' + friends[0]);
-//           friends.shift();
-//           db.set('friends', friends)
-//             .write();
-      
-//           console.log("Left to do: " + friends.length)
-//         });
-//       }
-  
-
-
-// function addRetweet () {
-//       T.post('friendships/update', { user_id: 5703342, retweets: 'true' }, (err, data, res) => {
-//         // if (err) response.send(err);
-//         if (err) console.log(err);
-        
-//           console.log('Added retweets from ' + 5703342, data);
-//           // friends.shift();
-//           // db.set('friends', friends)
-//           //   .write();
-      
-//           // console.log("Left to do: " + friends.length)
-//         });
-//       }
-      
-    
-// response.send('ok');
-
-  
-// }); // app.all Express call
-
-// app.get("/testing", (request, response) => {
-//   T.get('friends/ids', { screen_name: 'phocks' },  function (err, data, res) {
-//     // db.set('friends', data.ids)
-//     //   .write();
-//     response.json(data);
-//   })
-// });
-
-// var query = {
-  //   q: "javascript -filter:nativeretweets",
-  //   result_type: "recent",
-  //   lang: "en",
-  //   count: 100
-  // }
-
-//   T.get('search/tweets', query, function (error, data, response) {
-//     if (error) {
-//       console.log('Bot could not find latest tweets, - ' + error);
-//     }
-//     else {
-//       var userList = "";
-//       // console.log(data);
-//       data.statuses.forEach(function (d, i) {
-//         // console.log(d.user.screen_name);
-//         if (userList === "") userList = userList + d.user.screen_name;
-//         else userList = userList + "," + d.user.screen_name;
-//       });
-      
-//       console.log(userList);
-      
-//       var params ={
-//         screen_name: userList,
-//         owner_screen_name: "phocks",
-//         slug: "javascripters"
-//       }
-      
-      
-      
-      // Uncomment below to process
-      
-      // T.post('lists/members/create_all', params, function (error, response) {
-      //   if (error) {
-      //       console.log('Bot could not do it, - ' + error);
-      //     }
-      //     else {
-      //       console.log("Completed...")
-      //       // console.log(response);
-      //     }
-      // });
-    
-      
-      
-      
-      
-      
-      
-//       var id = {
-//         id : data.statuses[0].id_str
-//       }
-      
-//       var currentUser = data.statuses[0].user.screen_name;
-    
-      
-//       console.log("Current user: " + currentUser);
-//       console.log(data.statuses[0].text);
-      
-      // T.post('favorites/create', id, function (error, response) {
-      //     if (error) {
-      //       console.log('Bot could not fav, - ' + error);
-      //     }
-      //     else {
-      //       console.log('Bot faved : ' + id.id);
-      //     }
-      //   });
-      
-    // }
-      
-  // });
+// Function to drop the database for testing (be careful)
+function dropEntireDatabase() {
+  const newState = {}
+  db.setState(newState)
+  db.write()
+}

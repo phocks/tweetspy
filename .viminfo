@@ -8,6 +8,8 @@
 # hlsearch on (H) or off (h):
 ~h
 # Command Line History (newest to oldest):
+:wq
+:Wq
 :q
 
 # Search String History (newest to oldest):
@@ -19,13 +21,35 @@
 # Input Line History (newest to oldest):
 
 # Registers:
+""1	LINE	0
+	    "916516336037236736,mamaemeritusiii",
+"2	LINE	0
+	    "916518554551296000,paper_seas",
+"3	LINE	0
+	    "916522862298591232,johnmyeye",
+"4	LINE	0
+	    "916523267233419264,bonerman_inc",
+"5	LINE	0
+	    "916526259970232320,MobyDickatSea",
+"6	LINE	0
+	    "916528927312449538,paper_seas",
+"7	LINE	0
+	    "916532284609744896,Vegan_Sad_Boy",
+"8	LINE	0
+	    "916540343675510784,actuallysnamber",
+"9	LINE	0
+	    "916541481338523648,actuallysnamber",
 
 # File marks:
-'0  1  0  ~/.data/db.json
-'1  2  0  ~/n
+'0  32  4  ~/.data/db.json
+'1  1  0  ~/.data/db.json
+'2  26  4  ~/.data/db.json
+'3  2  0  ~/n
 
 # Jumplist (newest first):
+-'  32  4  ~/.data/db.json
 -'  1  0  ~/.data/db.json
+-'  26  4  ~/.data/db.json
 -'  2  0  ~/n
 -'  1  0  ~/n
 -'  2  0  ~/n
@@ -34,11 +58,100 @@
 -'  1  0  ~/n
 -'  2  0  ~/n
 -'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
+-'  1  0  ~/n
+-'  2  0  ~/n
 
 # History of marks within files (newest to oldest):
 
 > ~/.data/db.json
-	"	1	0
+	"	32	4
+	.	32	0
+	+	1	0
+	+	26	0
+	+	32	0
 
 > ~/n
 	"	2	0
