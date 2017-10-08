@@ -104,12 +104,6 @@ async function setupNewTargets (userName) {
 }
 
 
-async function printFaves() {
-  let faves = await getRawFaves('phocks')
-  console.log(faves);
-}
-
-
 // Some async await functions to try
 async function getRawFaves(username) {
   var faves = await T.get('favorites/list', { screen_name: username })
@@ -147,6 +141,7 @@ function runTriggerLoop() {
     // See if there are any new faves by minusing the old ones
     let newFaves = currentFaves.diff(previouslyFaved);
     
+    console.log(newFaves);    
     // Tweet any new faves
     newFaves.forEach(async commaSeparatedFaves => {
       // Split up our string of values to we can parse them

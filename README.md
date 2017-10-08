@@ -5,7 +5,9 @@ This is a twitter bot that can spy on people.
 
 Currently it just watches for things that a person favourites.
 
-Made by [follow me here](http://twitter.com/phocks). 
+TODO: Watch for follows and unfollows.
+
+Made by [Joshua Byrd](http://twitter.com/phocks). 
 
 **Powered by [Glitch](https://glitch.com)**
 
