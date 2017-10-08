@@ -27,5 +27,6 @@
     "twitterbot",
     "bot"
   ],
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "engines": { "node": "8" }
 }
