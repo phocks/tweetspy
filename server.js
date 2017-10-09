@@ -62,7 +62,7 @@ Array.prototype.diff = function(a) {
     return this.filter(function(i) {return a.indexOf(i) < 0;});
 };
 
-
+// test
 
 function init() {
   checkTargetInDb(targets);
@@ -77,7 +77,7 @@ function checkTargetInDb(targets) {
     // If user not in DB try to set them up after a delay
     setTimeout(() => {
       setupNewTargets(user);
-    }, 2000)
+    }, 5000)
   });
 }
 
