@@ -7,12 +7,17 @@
 
 # hlsearch on (H) or off (h):
 ~h
+# Last Search Pattern:
+~MSle0~/posted
+
 # Command Line History (newest to oldest):
+:q
 :wq
 :Wq
-:q
 
 # Search String History (newest to oldest):
+?/posted
+?/zzz
 
 # Expression History (newest to oldest):
 
@@ -41,14 +46,18 @@
 	    "916541481338523648,actuallysnamber",
 
 # File marks:
-'0  32  4  ~/.data/db.json
+'0  843  3  ~/.data/db.json
 '1  1  0  ~/.data/db.json
-'2  26  4  ~/.data/db.json
-'3  2  0  ~/n
+'2  868  0  ~/.data/db.json
+'3  32  4  ~/.data/db.json
+'4  26  4  ~/.data/db.json
+'5  2  0  ~/n
 
 # Jumplist (newest first):
--'  32  4  ~/.data/db.json
+-'  843  3  ~/.data/db.json
 -'  1  0  ~/.data/db.json
+-'  868  0  ~/.data/db.json
+-'  32  4  ~/.data/db.json
 -'  26  4  ~/.data/db.json
 -'  2  0  ~/n
 -'  1  0  ~/n
@@ -142,12 +151,11 @@
 -'  1  0  ~/n
 -'  2  0  ~/n
 -'  1  0  ~/n
--'  2  0  ~/n
 
 # History of marks within files (newest to oldest):
 
 > ~/.data/db.json
-	"	32	4
+	"	843	3
 	.	32	0
 	+	1	0
 	+	26	0

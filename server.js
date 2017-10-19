@@ -29,6 +29,10 @@ const db = low(adapter);
 const currentUser = process.env.USERNAME;
 const targets = require('./targets.json').targets;
 
+// Set DB defaults
+db.defaults({ posted: [] })
+  .write();
+
 // Changable options 
 let mute = true;
 
@@ -49,6 +53,18 @@ app.all("/" + process.env.BOT_ENDPOINT, function (request, response) {
   
   response.sendStatus(200);
 }); // app.all Express call
+
+
+app.all("/test", function (request, response) {
+  console.log("The bot has been triggered!!!");
+  
+  runTestLoop();
+  
+  response.sendStatus(200);
+}); // app.all Express call
+
+
+
 
 
 var listener = app.listen(process.env.PORT, function () {
@@ -124,6 +140,43 @@ function extractFaves(rawFaves) {
   });
 }
 
+function storeTweetID(tweetID, screenName) {
+  db.get("posted")
+    .push(tweetID + "," + screenName)
+    .write();
+  console.log('wrote tweetID and screenName to db');
+}
+
+function isAlreadyTweeted(tweetID, screenName) {
+  let postedTweets = db.get("posted").value();
+  
+  console.log("Checking database of:", postedTweets);
+  console.log("For: " + tweetID + "," + screenName);
+  
+  if (postedTweets.indexOf(tweetID + "," + screenName) > -1) return true;
+  else return false;
+}
+
+// Test loop
+function runTestLoop() {
+  
+  // db.get("posted")
+  //   .push("586374546615218177,swm0904")
+  //   .write();
+  // let posted = db.get("posted")
+    // .find("586374546615218177,swm0904")
+    // .value();
+  
+  // console.log(posted);
+  
+  // db.unset('posted')
+  // .write()
+  
+  storeTweetID("874724911704489984","samanthamaiden");
+  
+  console.log(isAlreadyTweeted("874724911704489984","samanthamaiden"));
+}
+
 /*
  * THE MAIN LOOP
  *--------------------------------------*/
@@ -131,6 +184,8 @@ function extractFaves(rawFaves) {
 // This gets processed every 25 minutes
 function runTriggerLoop() {
   console.log("Checking all targets for new faves...")
+  
+  
   targets.forEach(async target => {
     // Connect to Twitter and grab the faves
     let currentFaves = await getExtractedFaves(target);
@@ -140,12 +195,23 @@ function runTriggerLoop() {
 
     // See if there are any new faves by minusing the old ones
     let newFaves = currentFaves.diff(previouslyFaved);
+  
+    console.log(newFaves); 
     
-    console.log(newFaves);    
     // Tweet any new faves
-    newFaves.forEach(async commaSeparatedFaves => {
+    newFaves.forEach(async commaSeparatedFav => {
+      
       // Split up our string of values to we can parse them
-      let faves = commaSeparatedFaves.split(",");
+      let faves = commaSeparatedFav.split(",");
+      
+      // Check for already tweeted tweet otherwise return without processing
+      if (isAlreadyTweeted(faves[0], faves[1])) {
+        console.log("Found already tweeted tweet. Not continuing...")
+        return;
+      }
+      
+      // WONT PROCESS BELOW HERE IF ALREADY TWEETED THIS TWEET
+      //----------------------------------------------------------------------------
       
       console.log('Tweeting faved tweet...')
       let response = await T.post('statuses/update', 
@@ -155,6 +221,11 @@ function runTriggerLoop() {
       });
       
       console.log('Tweeting finished!');
+      
+      console.log('Storing tweet ID...')
+      
+      // Store the tweet to avoid double posting
+      storeTweetID(faves[0], faves[1]);
     });
     
     // Write current faves to database ready for next check
