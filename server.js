@@ -33,7 +33,7 @@ const targets = require('./targets.json').targets;
 db.defaults({ posted: [] })
   .write();
 
-// Changable options 
+// Changable options
 let mute = true;
 
 
@@ -184,7 +184,7 @@ function runTestLoop() {
 // This gets processed every 25 minutes
 function runTriggerLoop() {
   console.log("Checking all targets for new faves...")
-  
+
   
   targets.forEach(async target => {
     // Connect to Twitter and grab the faves
@@ -234,4 +234,6 @@ function runTriggerLoop() {
   });
 }
 
-
+/*
+ * Test loop
+ */
