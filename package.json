@@ -8,12 +8,12 @@
   },
   "dependencies": {
     "twit": "^2.2.9",
-    "express": "^4.16.1",
+    "express": "^4.16.2",
     "lowdb": "^1.0.0",
     "fox-js": "^0.1.0"
   },
   "engines": {
-    "node": "6.9.1"
+    "node": "8"
   },
   "repository": {
     "url": ""
@@ -27,6 +27,5 @@
     "twitterbot",
     "bot"
   ],
-  "license": "GPL-3.0",
-  "engines": { "node": "8" }
+  "license": "GPL-3.0"
 }
