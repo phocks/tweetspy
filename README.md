@@ -14,3 +14,5 @@ Made by [Joshua Byrd](http://twitter.com/phocks).
 **Powered by [Glitch](https://glitch.com)**
 
 \ ゜o゜)ノ
+
+Actuall.... used to be on Glitch, but is now on [Google Cloud Compute](https://dev.to/phocks/how-to-get-a-free-google-server-forever-1fpf)
