@@ -15,4 +15,8 @@ Made by [Joshua Byrd](http://twitter.com/phocks).
 
 \ ゜o゜)ノ
 
-Actuall.... used to be on Glitch, but is now on [Google Cloud Compute](https://dev.to/phocks/how-to-get-a-free-google-server-forever-1fpf)
+Actually.... used to be on Glitch, but is now on [Google Cloud Compute](https://dev.to/phocks/how-to-get-a-free-google-server-forever-1fpf)
+
+---
+
+Update 2021-10-02 this functionality is now in [Twitter Action Hero](https://github.com/phocks/twitter-action-hero).
